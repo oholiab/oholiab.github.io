@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "Restart"
+date:   2016-11-03 23:08:15 +0000
+categories: admin meta
+---
+
+So I've been hanging out a lot in #n-o-d-e on irc.freenode.net (which is the irc
+channel for the ever excellent [n-o-d-e][n-o-d-e] and [tj] who
+frequents the channel has been shaming the rest of us with his
+[blogging][adventurist] by just blogging cool shit as he goes along. Well I for
+one will not stand for it.
+
+I'm going to copy him.
+
+So I'm finally getting round to blogging some of my own shit hopefully in a
+useful and interesting way. Or some shit.
+
+[n-o-d-e]: http://n-o-d-e.net
+[adventurist]: http://adventurist.me/page/
