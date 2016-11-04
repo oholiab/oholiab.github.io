@@ -1,0 +1,68 @@
+---
+layout: post
+title:  "MangoDB"
+date:   2016-11-03 15:57:15 +0000
+categories: server unix security
+---
+Today some common threads came up for me again in my approach to debugging
+stuff. A friend who was running a mongo instance for a little test app from
+some time ago came to me and asked me to (amongst other things) tell her where
+the document store was on the filesystem so she could back it up.
+
+Having previously rescued her install during the day (don't ask, fucking Mongo)
+from some lovely "features", my brain skipped looking in the config file for
+reasons of trust and straight to:
+
+```bash
+sudo lsof -p $(pidof mongod)
+```
+
+This belies my intense distrust of some userland programs: I don't care what YOU
+think you're doing, I'm asking the kernel.
+
+We also had a talk today at work about Unix dynamic linking, in which
+`/proc/<pid>/maps` came up again. This brought me back to the fun "feature" of
+apt in which it restarts a list of assumed dependent services for a given shared
+library when it upgrades, but they're by no means exhaustive so you can think
+that you've mitigated some CVE related to libpam when in actuality half of the
+dependent daemons still have the old version mmapped.
+
+My shonky script to demonstrate this is:
+
+```bash
+#!/bin/bash
+[ -z "$1" ] && exit 2
+
+library_regex="$@"
+
+mapped_deleted=""
+while read process; do 
+  pid=$(echo $process | awk '{print $1}')
+  cmd=$(echo $process | awk '{print $2}')
+  map=$(sudo grep -E "$library_regex" /proc/$pid/maps 2>/dev/null)
+  if ! [ "$map" = "" ]; then
+    echo -e "\n${process}\n------------"
+    echo "$map"
+    if echo "$map" | grep -q "(deleted)"; then
+      mapped_deleted="$mapped_deleted\n$cmd"
+    fi
+  fi
+done< <(ps --no-header -eo pid,comm)
+
+if [ "$mapped_deleted" = "" ]; then
+  exit 1
+else
+  echo
+  echo "NEEDS RESTART"
+  echo -n "============="
+  echo -e "$mapped_deleted" | sort | uniq
+  exit 0
+fi
+```
+
+Just another argument for high reboot churn and trusting userland about as far
+as you can throw it :)
+
+I think the worst kinds of misfeatures are the ones that make you think you're
+doing your due dilligence when in actuality they're just giving you a false
+sense of security.
