@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "MangoDB"
-date:   2016-11-03 15:57:15 +0000
+date:   2016-11-04 15:57:15 +0000
 categories: server unix security
 ---
 Today some common threads came up for me again in my approach to debugging
