@@ -62,3 +62,5 @@ output never makes it through in time!
 
 I'm going to have a go at installing an onscreen keyboard and a multitouch
 interpreter again.
+
+[yoga-laptop]: https://github.com/pfps/yoga-laptop
