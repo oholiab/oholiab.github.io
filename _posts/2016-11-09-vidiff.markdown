@@ -1,0 +1,37 @@
+---
+layout: post
+title:  "vidiff workflow"
+date:   2016-11-08 10:56:15 +0800
+categories: git workflow
+---
+Disclaimer: This isn't about vimdiff but about something I called vidiff because
+I always have vi aliased to vim and it's about editing files that are part of a
+diff. Naming is hard.
+
+I like to use a git branching model for working pretty heavily - it matches well
+to my mental model of "I am trying to do X right now" and to have a branch
+associated with it. Additionally, (especially at work) I tend to use commits and
+indexes to delineate progress, and it's especially useful when I'm away for a
+couple of days and come back to a problem.
+
+As such, I've found myself using this pattern a lot:
+
+`vi $(git diff HEAD~1 --name-only)`
+
+or
+
+`vi $(git diff origin/master --cached --name-only)`
+
+in order to focus on the relevant files, especially in a repository with a deep
+hierarchy like puppet.
+
+So I wrote this today:
+
+```bash
+function vidiff {
+  vi $(git diff $@ --name-only)
+}
+```
+
+Now all I have to do is `vidiff HEAD~1` to edit all the files that were changed
+in the last commit :)
