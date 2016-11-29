@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+module JekyllHelpers
+  def post_template(title, uri, date)
+    template = <<-EOF
+      ---
+      layout: post
+      title:  "#{title}"
+      date:   #{date.strftime('%Y-%m-%d %H:%M:%S %z')}
+      categories:
+      ---
+    EOF
+    return template.gsub(/^\s*/, '')
+  end
+end
+
+include JekyllHelpers
+
+case ARGV[0]
+when 'post'
+  title = ""
+  date = DateTime.now
+
+  puts "enter a title for the post"
+  title = STDIN.gets.chomp
+  uri = '_posts/' + date.strftime('%Y-%m-%d') + '-' + title.gsub(/[^A-Za-z0-9]/, '_') + '.markdown'
+  File.open(uri, 'w') do |post|
+    post.write(post_template(title, uri, date))
+  end
+else
+  fail "You must provide a command"
+end
