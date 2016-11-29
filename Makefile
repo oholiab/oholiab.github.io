@@ -1,4 +1,4 @@
-.PHONY: dev-env serve
+.PHONY: dev-env serve post
 
 default: dev-env
 
@@ -10,3 +10,6 @@ vendor:
 
 serve:
 	bundle exec jekyll serve
+
+post:
+	bundle exec helpers post

@@ -1,7 +1,12 @@
 #!/usr/bin/env ruby
 
+# Simple helpers for creating jekyll posts easily
 module JekyllHelpers
-  def post_template(title, uri, date)
+  # Generates returns a string containing the front-matter for the post,
+  # +title+:: the human readable title string of the post
+  # +date+::  A DateTime object with the creation date of the post (should match
+  #           the shortform date in the markdown file name)
+  def post_template(title, date)
     template = <<-EOF
       ---
       layout: post
@@ -12,21 +17,27 @@ module JekyllHelpers
     EOF
     return template.gsub(/^\s*/, '')
   end
+  # Create a new post by prompting for the title and using the current date.
+  def new_post()
+    title = ""
+    date = DateTime.now
+    puts "enter a title for the post"
+    title = STDIN.gets.chomp
+    uri = '_posts/' + date.strftime('%Y-%m-%d') + '-' + title.gsub(/[^A-Za-z0-9]/, '_') + '.markdown'
+    File.open(uri, 'w') do |post|
+      post.write(post_template(title, date))
+    end
+    return uri
+  end
 end
 
 include JekyllHelpers
 
 case ARGV[0]
 when 'post'
-  title = ""
-  date = DateTime.now
-
-  puts "enter a title for the post"
-  title = STDIN.gets.chomp
-  uri = '_posts/' + date.strftime('%Y-%m-%d') + '-' + title.gsub(/[^A-Za-z0-9]/, '_') + '.markdown'
-  File.open(uri, 'w') do |post|
-    post.write(post_template(title, uri, date))
-  end
+  puts new_post()
 else
   fail "You must provide a command"
 end
+
+exit 0
