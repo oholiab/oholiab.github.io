@@ -13,3 +13,6 @@ serve:
 
 post:
 	bundle exec helpers post
+
+doc: helpers
+	bundle exec rdoc helpers
