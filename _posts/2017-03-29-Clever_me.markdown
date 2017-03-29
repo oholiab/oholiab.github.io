@@ -1,0 +1,43 @@
+---
+layout: post
+title:  "Clever me"
+date:   2017-03-29 18:20:23 +0100
+categories: code clojure self_hosting
+---
+
+Today I opened up a term on my work laptop and I found the code for
+[grimmly][grimmly] which I'd worked on some time ago just sitting there, because
+I'd been chewing someone's ear off about it some time last week. I tend to leave
+tmux panes open for weeks.
+
+I haven't been using it for a while, so I thought I'd fire it up again. I went
+in to the appropriate directory on my vps and ran `make run`. I went in to my
+weechat and did `/script load grimmly`. Then I went in to my working SSL dir on
+my vps and ran `make`, which prompted me for a client machine friendly name and
+about a million fields and repeats of passwords (totally arbitrary information
+that I should probably get around to automating somewhen). Finally it spat out a
+`.p12` file which I downloaded and imported in to my keychain on my local
+machine.
+
+And it all works flawlessly. I'm pretty chuffed with past me (usually that guy's
+a bastard), because he decided on a useful thing to do and did it in a cool way
+that's an amalgamation of different knowledges:
+- clojure
+- python
+- weechat
+- HTTP
+- SSL and SSL client certificates
+- nginx
+- docker containers and container networks
+- shitloads of Makefile
+
+My favourite thing about it is that it's very unixy - lots of bits that are good
+at their jobs plug in together to make something that's simple, fast, effective
+and composeable.
+
+On top of that, it's a love song to the esoteric way in which I always end up
+doing things, which now at the age of 30 I suppose I should only embrace
+(because it's unlikely to change). I moulded a thing around my workflow so that
+I could remain in total control - the way technology is supposed to be.
+
+[grimmly]: http://github.com/oholiab/grimmly
