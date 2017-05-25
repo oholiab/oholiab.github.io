@@ -22,6 +22,7 @@ url: "https://github.com/oholiab/oholiab.github.io" # the base hostname & protoc
 twitter_username: oholiab
 github_username:  oholiab
 assets_baseurl: "https://grimmwa.re/files/oholiab_blog_assets"
+images_baseurl: "https://grimmwa.re/files/oholiab_blog_assets/images"
 
 # Build settings
 markdown: kramdown

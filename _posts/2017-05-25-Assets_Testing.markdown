@@ -7,4 +7,4 @@ categories: software cms meta
 
 Don't mind me, just testing my new decentralised assets system
 
-![I made a helpful wrapper for curl]({{ site.assets_baseurl }}/images/curlywurly.png)
+![I made a helpful wrapper for curl]({{ site.images_baseurl }}/curlywurly.png)
