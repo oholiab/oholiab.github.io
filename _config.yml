@@ -21,7 +21,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://github.com/oholiab/oholiab.github.io" # the base hostname & protocol for your site
 twitter_username: oholiab
 github_username:  oholiab
-assets_baseurl: "https://assets.grimmwa.re/oholiab_blog"
+assets_baseurl: "https://grimmwa.re/files/oholiab_blog_assets"
 
 # Build settings
 markdown: kramdown

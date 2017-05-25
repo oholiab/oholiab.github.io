@@ -5,3 +5,5 @@ vendor
 *.swp
 *.swo
 doc/
+assets_host
+assets_path
