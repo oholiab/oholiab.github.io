@@ -3,11 +3,11 @@
 ASSETS_HOST:=$(shell cat assets_host)
 ASSETS_PATH:=$(shell cat assets_path)
 ASSETS_PARENT:=$(dir $(ASSETS_PATH))
-ASSETS_REMOTE:=$(shell bash -c "cd assets && git remote show origin | grep Fetch | sed -E 's/^.+Fetch URL: (.+)$$/\1/'")
+ASSETS_REMOTE:=$(shell cat assets_remote)
 
 default: dev-env
 
-dev-env: vendor | assets/images
+dev-env: vendor | assets
 
 vendor:
 	which bundle || gem install bundler
@@ -22,10 +22,10 @@ post:
 doc: helpers
 	bundle exec rdoc helpers
 
-assets/images:
-	git submodule update --init --recursive
+assets:
+	git clone $(ASSETS_REMOTE) assets
 
-get-assets: assets/images
+get-assets: assets
 	cd assets && git annex get .
 
 publish: dev-env
