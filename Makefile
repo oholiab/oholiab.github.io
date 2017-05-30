@@ -30,7 +30,7 @@ get-assets: _assets
 
 publish: dev-env
 	git push origin master
-	cd _assets && git annex sync
+	cd _assets && git annex sync && git annex copy * --to origin
 	scp -r _remote-utils $(ASSETS_HOST):.
 	ssh -A $(ASSETS_HOST) ./_remote-utils/update-assets.sh $(ASSETS_PATH)
 
