@@ -5,7 +5,7 @@ date:   2017-05-30 17:41:23 +0100
 categories: software editors coding
 ---
 
-![I feel like a shill]({ site.images_baseurl }/spacemacs.png)
+![I feel like a shill]({{ site.images_baseurl }}/spacemacs.png)
 
 I might have mentioned before that I like writing shit in Clojure for what
 aren't particularly good reasons. In doing so, I've become kind of fond of

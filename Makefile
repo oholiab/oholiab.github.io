@@ -7,7 +7,7 @@ ASSETS_REMOTE:=$(shell cat assets_remote)
 
 default: dev-env
 
-dev-env: vendor | assets
+dev-env: vendor | _assets
 
 vendor:
 	which bundle || gem install bundler
@@ -25,13 +25,14 @@ doc: helpers
 _assets:
 	git clone $(ASSETS_REMOTE) _assets
 
-get-assets: assets
-	cd assets && git annex get .
+get-assets: _assets
+	cd _assets && git annex get .
 
 publish: dev-env
 	git push origin master
-	cd assets && git annex sync
-	ssh -A $(ASSETS_HOST) bash -c "cd $(ASSETS_PATH) && git annex sync && git annex get ."
+	cd _assets && git annex sync
+	scp -r _remote-utils $(ASSETS_HOST):.
+	ssh -A $(ASSETS_HOST) ./_remote-utils/update-assets.sh $(ASSETS_PATH)
 
 assets-remote-init:
 	scp -r _remote-utils $(ASSETS_HOST):.
