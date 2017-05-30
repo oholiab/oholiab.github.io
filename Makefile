@@ -22,8 +22,8 @@ post:
 doc: helpers
 	bundle exec rdoc helpers
 
-assets:
-	git clone $(ASSETS_REMOTE) assets
+_assets:
+	git clone $(ASSETS_REMOTE) _assets
 
 get-assets: assets
 	cd assets && git annex get .
