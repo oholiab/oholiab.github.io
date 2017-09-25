@@ -1,6 +1,26 @@
-## Mounting encrytped LVM
+---
+layout: post
+title:  "Installing EFI grub to an encrypted LVM system"
+date:   2017-09-25 12:46:55 +0100
+categories:
+---
+When I was installing subgraphOS alpha3 (fear not, there's a [new
+release][newrelease] out that I've tested and installed which fixes this
+problem!) there was no grub installer for UEFI in the OS installer, meaning that
+I had to skip the grub install, reboot to the live OS, remount the encrypted
+LVM, install the grub package in the chrooted environment and then install grub
+to the efi partition.
 
-Open a root shell in /, and list available block devices:
+Whilst it's not necessary any more due to the new release, I documented the
+thing whilst I was going based on this [github issue comment][github] and this
+[stackoverflow post][stackoverflow] just for anyone who has problems getting
+grub installed on an encrypted LVM install of a debian based system (which is
+sadly probably more likely than it sounds)
+
+## Mounting encrypted LVM
+
+Boot to a live distribution and open a root shell in /, and list available block
+devices:
 
 ```bash
 root@subgraph:/# ls
@@ -128,7 +148,8 @@ root@subgraph:/# ls
 bin  boot  dev	etc  home  lib	lib64  lost+found  media  mnt  opt  proc  root	run  sbin  srv	sys  tmp  usr  var
 root@subgraph:/# apt-get update
 ... <yep, we have to do this again - the installed system doesn't have an updated apt-cache yet!>
-root@subgraph:/# apt-get install FIXME
+root@subgraph:/# apt-get install grub-efi-amd64-bin efibootmgr
+... <install happens>
 ```
 
 Finally we can do a grub-install to make our system bootable!
@@ -147,3 +168,7 @@ done
 root@subgraph:/# 
 ```
 Now you can exit your chroot and reboot the system!
+
+[github]:https://github.com/subgraph/subgraph-os-issues/issues/192#issuecomment-297552836
+[stackoverflow]:https://askubuntu.com/a/653460
+[newrelease]:https://subgraph.com/sgos/download/index.en.html
