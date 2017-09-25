@@ -2,7 +2,7 @@
 layout: post
 title:  "Installing EFI grub to an encrypted LVM system"
 date:   2017-09-25 12:46:55 +0100
-categories:
+categories: debian EFI yak-shaving
 ---
 When I was installing subgraphOS alpha3 (fear not, there's a [new
 release][newrelease] out that I've tested and installed which fixes this
