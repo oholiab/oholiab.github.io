@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'date'
+
 # Simple helpers for creating jekyll posts easily
 module JekyllHelpers
   # Generates returns a string containing the front-matter for the post,
@@ -20,7 +22,7 @@ module JekyllHelpers
   # Create a new post by prompting for the title and using the current date.
   def new_post()
     title = ""
-    date = DateTime.now
+    date = ::DateTime.now
     puts "enter a title for the post"
     title = STDIN.gets.chomp
     uri = '_posts/' + date.strftime('%Y-%m-%d') + '-' + title.gsub(/[^A-Za-z0-9]/, '_') + '.markdown'
