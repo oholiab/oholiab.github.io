@@ -1,0 +1,61 @@
+---
+layout: post
+title:  "TODON'T"
+date:   2018-12-03 08:42:37 +0000
+categories: TODO software organization archlinux
+---
+
+I've recently been playing around with [joplin](joplin) as a notebook and TODO
+manager. I initially looked at it because I'd been kind-of using org-mode and an
+associated iOS app but finding that it was a little too flexible and let me lose
+my `.org` files or create a convoluted mess of a document hierarchy. The app was
+pretty shit too.
+
+Joplin is nice because it's simple - you have a number of workbooks, and you
+create todos and notes in markdown format. You can sync via dropbox (so no cloud
+service, no signup) , and the killer feature for me is the terminal app.
+
+But life's never easy and when I went to build from AUR the fucking build was
+failing on some Electron nonsense. Both the Electron and terminal apps are
+bundled in together, and I really don't care for the former, so I managed to fix
+it all by removing it from the PKGBUILD:
+
+```diff
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -42,13 +42,6 @@ build() {
+   npm install
+
+   # Electron App
+-  cd "${srcdir}/${pkgname}-${pkgver}/ElectronClient/app"
+-
+-  npm install
+-  rsync -a --delete "${srcdir}/${pkgname}-${pkgver}/ReactNativeClient/lib/" \
+-    "${srcdir}/${pkgname}-${pkgver}/ElectronClient/app/lib/"
+-  npm run compile
+-  npm run pack
+ }
+
+ package() {
+@@ -57,15 +50,10 @@ package() {
+
+   cp -R "${srcdir}/${pkgname}-${pkgver}/CliClient/build/"* \
+     "${pkgdir}/usr/share/${pkgname}-cli"
+-  cp -R "${srcdir}/${pkgname}-${pkgver}/ElectronClient/app/dist/linux-unpacked/"* \
+-    "${pkgdir}/usr/share/${pkgname}"
+-
+
+   cd ${srcdir}
+-  install -m755 joplin-desktop.sh "${pkgdir}/usr/bin/joplin-desktop"
+   install -m755 joplin.sh "${pkgdir}/usr/bin/joplin"
+
+-  install -Dm644 ../joplin.desktop ${pkgdir}/usr/share/applications/joplin.desktop
+   install -Dm644 "${srcdir}/${pkgname}-${pkgver}/LICENSE" \
+     "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+ }
+```
+
+Makes me glad I have a build container to keep all the build trash off my main
+environment!
+
+[joplin]:https://joplin.cozic.net/
