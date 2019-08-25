@@ -12,7 +12,7 @@ Thanks to a friend stopping by before CCC, I've been working on a CTF challenge,
 Rather than attempt to write everything at once in one place I'm going to just blog the bits as I have time and think of them and then link them all together later as a cheat sheet of "shit you might not know because Google doesn't work properly any more".
 
 # Overflowing x86_64 return address
-Firstly, I'm learning some interesting things with regards to the way that people post tutorials online about writing shellcode: they post it for x86 despite the fact nobody's using 32 bit Intel any more. An absolutely *huge* deal here is that when you're trying to overflow `rip` (`eip` in nobody-cares-anymore-that-shit-is-old land) the valid address range is *not* typically 64bit. To shamelessly copy the explanation from [here](64bit explanation)([archived](archived 64bit explanation)):
+Firstly, I'm learning some interesting things with regards to the way that people post tutorials online about writing shellcode: they post it for x86 despite the fact nobody's using 32 bit Intel any more. An absolutely *huge* deal here is that when you're trying to overflow `rip` (`eip` in nobody-cares-anymore-that-shit-is-old land) the valid address range is *not* typically 64bit. To shamelessly copy the explanation from [here][64bit explanation] ([archived][archived 64bit explanation]) because the Wikipedia text it's referencing is now gone...:
 
 > In a 64-bit architecture, the entire 2⁶⁴ bytes are not utilized for
 > address space. In a typical 48 bit implementation, canonical address
