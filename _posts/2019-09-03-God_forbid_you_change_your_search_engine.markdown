@@ -82,7 +82,7 @@ This basically just adds the query string parameter `tbs=li:1` which sets "Verba
 Now finally you just need to recompress the file:
 
 ```bash
-jq -c -r . < search.json | python3 fuckfirefox.py -c > newsearch.json.mozlz4
+jq -c -r . < search.json | mozlz4 -c > newsearch.json.mozlz4
 ```
 
 Here, `jq -c -r .` strips all the whitespace and pretty-printing.
